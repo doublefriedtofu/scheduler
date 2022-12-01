@@ -38,8 +38,8 @@ export default function Application() {
           <nav className="sidebar__menu">
             <DayList
               days={days}
-              day={day}
-              setDay={setDayClick}
+              value={day}
+              onChange={setDayClick}
             /> 
           </nav>
           <img

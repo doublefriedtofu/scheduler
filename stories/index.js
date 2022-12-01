@@ -9,6 +9,8 @@ import Button from "components/Button";
 import DayListItem from "components/DayListItem";
 import DayList from 'components/DayList';
 import InterviewerListItem from 'components/InterviewerListItem'
+import InterviewerList from 'components/InterviewerList'
+
 // Stories for Button
 storiesOf("Button", module)
   .addParameters({
@@ -62,13 +64,13 @@ storiesOf("Button", module)
       backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
     })
     .add("Monday", () => (
-      <DayList days={days} day={"Monday"} setDay={action("setDay")} />
+      <DayList days={days} value={"Monday"} onChange={action("setDay")} />
     ))
     .add("Tuesday", () => (
-      <DayList days={days} day={"Tuesday"} setDay={action("setDay")} />
+      <DayList days={days} value={"Tuesday"} onChange={action("setDay")} />
     ))
     .add("Wednesday", () => (
-        <DayList days={days} day={"Wednesday"} setDay={action("setDay")} />
+        <DayList days={days} value={"Wednesday"} onChange={action("setDay")} />
     ));
   
 
@@ -98,14 +100,13 @@ storiesOf("Button", module)
           selected
         />
       ))
-      .add("Clickable", () => (
-        <InterviewerListItem
-          id={interviewer.id}
-          name={interviewer.name}
-          avatar={interviewer.avatar}
-          setInterviewer={action("setInterviewer")}
-        />
-      ));
+        .add("Clickable", () => (
+          <InterviewerListItem
+            name={interviewer.name}
+            avatar={interviewer.avatar}
+            setInterviewer={() => action("setInterviewer")(interviewer.id)}
+          />
+        ));
     
       // stories for interviewer List
       const interviewers = [
@@ -128,13 +129,14 @@ storiesOf("Button", module)
         .add("Selected", () => (
           <InterviewerList
             interviewers={interviewers}
-            interviewer={3}
+            value={3}
           />
         ))
         .add("Clickable", () => (
           <InterviewerList
             interviewers={interviewers}
-            setInterviewer={action("setInterviewer")}
+            onChange={action("setInterviewer")}
           />
         ));
+        
       
