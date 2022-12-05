@@ -1,5 +1,3 @@
-import InterviewerList from "components/InterviewerList";
-
 export function getAppointmentsForDay(state, day) {
   const filteredDays = state.days.filter(dayName => dayName.name === day);
   const filteredAppointments = state.appointments;
@@ -17,6 +15,27 @@ export function getAppointmentsForDay(state, day) {
   }
   return foundAppt;
 }
+
+
+export function getInterviewersForDay(state, day) {
+  const filteredDays = state.days.filter(dayName => dayName.name === day);
+  const filteredInterviewers = state.interviewers;
+
+  const foundInterviewers = [];
+
+  if (filteredDays.length) {
+    const interviewers = filteredDays[0].interviewers;
+
+    for (const selectedInterviewers of interviewers) {
+      if (selectedInterviewers in filteredInterviewers) {
+        foundInterviewers.push(filteredInterviewers[selectedInterviewers]);
+      }
+    }
+  }
+  console.log(foundInterviewers)
+  return foundInterviewers;
+}
+
 
 export function getInterview(state, interview) {
   if (interview) {

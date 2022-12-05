@@ -4,7 +4,7 @@ import axios from 'axios';
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment/index";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors";
 
 export default function Application() {
 
@@ -18,7 +18,7 @@ export default function Application() {
 
   const setDay = day => setState({ ...state, day });
   const appointments = getAppointmentsForDay(state, state.day);
-  
+  const interviewers = getInterviewersForDay(state, state.day)
   
   useEffect(() => {
     const daysURL = `http://localhost:8001/api/days`;
@@ -69,6 +69,7 @@ export default function Application() {
               id={appointment.id}
               time={appointment.time}
               interview={interview}
+              interviewers={interviewers}
             />
           );
         })}
