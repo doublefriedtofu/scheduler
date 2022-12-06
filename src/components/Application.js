@@ -7,7 +7,7 @@ import Appointment from "components/Appointment/index";
 import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors";
 
 export default function Application() {
-
+  // STATE FOR DAY, DAYS, APPT, INTERVIEWERS
   const [state, setState] = useState({
     day: 'Monday',
     days: [],
@@ -17,33 +17,57 @@ export default function Application() {
 
 
   const setDay = day => setState({ ...state, day });
+  // GETS APPT FOR THE GIVEN DAY
   const appointments = getAppointmentsForDay(state, state.day);
-  const interviewers = getInterviewersForDay(state, state.day)
-  
+  // GETS INTERVIEWERS FOR THE GIVEN DAY
+  const interviewers = getInterviewersForDay(state, state.day);
+
+
+  // GETS THE APPROPRIATE DATA FROM API SERVER
   useEffect(() => {
     const daysURL = `http://localhost:8001/api/days`;
     const appointmentURL = `http://localhost:8001/api/appointments`;
     const interviewersURL = `http://localhost:8001/api/interviewers`;
-    
+
     Promise.all([
       axios.get(daysURL),
       axios.get(appointmentURL),
       axios.get(interviewersURL)
     ])
-    .then((all) => {
-      setState(prev => ({ ...prev, 
-        days: all[0].data, 
-        appointments: all[1].data, 
-        interviewers: all[2].data}));
-    });
+      .then((all) => {
+        setState(prev => ({
+          ...prev,
+          days: all[0].data,
+          appointments: all[1].data,
+          interviewers: all[2].data
+        }));
+      });
   }, []);
-  
+
+
+  // SAVES INPUT DATA INTO STATE
+  const bookInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return axios.put(`/api/appointments/${id}`, { interview })
+      .then(() => setState({ ...state, appointments }));
+  };
+
+
+  // FRONT END
   return (
     <main className="layout">
       <section className="sidebar">
         <img
           className="sidebar--centered"
-          src="images/logo.png" 
+          src="images/logo.png"
           alt="Interview Scheduler"
         />
         <hr className="sidebar__separator sidebar--centered" />
@@ -70,10 +94,11 @@ export default function Application() {
               time={appointment.time}
               interview={interview}
               interviewers={interviewers}
+              bookInterview={bookInterview}
             />
           );
         })}
       </section>
     </main>
   );
-};
+};;

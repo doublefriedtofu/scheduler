@@ -16,7 +16,6 @@ export function getAppointmentsForDay(state, day) {
   return foundAppt;
 }
 
-
 export function getInterviewersForDay(state, day) {
   const filteredDays = state.days.filter(dayName => dayName.name === day);
   const filteredInterviewers = state.interviewers;
@@ -32,7 +31,6 @@ export function getInterviewersForDay(state, day) {
       }
     }
   }
-  console.log(foundInterviewers)
   return foundInterviewers;
 }
 
