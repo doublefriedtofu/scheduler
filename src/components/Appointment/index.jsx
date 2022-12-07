@@ -9,18 +9,20 @@ import Status from './Status';
 
 
 export default function Appointment(props) {
-  const { id, time, interview, interviewers, bookInterview } = props;
+  const { id, time, interview, interviewers, bookInterview, cancelInterview, editInterview } = props;
 
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
   const SAVING = "SAVING";
   const DELETING = "DELETING";
+  const EDIT = "EDIT";
 
   const { mode, transition, back } = useVisualMode(
     interview ? SHOW : EMPTY
   );
 
+  // SAVES A NEW INTERVIEW APPOINTMENT
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -32,6 +34,17 @@ export default function Appointment(props) {
     bookInterview(id, interview).then(() => transition(SHOW));
   }
 
+  // FUNCTION DELETES THE INTERVIEW APPOINTMENT
+  function toDelete() {
+    transition(DELETING);
+    cancelInterview(id).then(() => transition(EMPTY));
+  }
+
+  // FUNCTION EDITS THE INTERVIEW APPOINTMENT
+  function edit() {
+    transition(EDIT);
+  }
+
   return (
     <article className="appointment">
       <Header time={time}>
@@ -41,6 +54,8 @@ export default function Appointment(props) {
         <Show
           student={interview.student}
           interviewers={interview.interviewer}
+          onDelete={toDelete}
+          onEdit={edit}
         />
       )}
       {mode === SAVING && <Status message="Saving" />}
@@ -50,6 +65,15 @@ export default function Appointment(props) {
           interviewers={interviewers}
           onSave={save}
           onCancel={() => back(EMPTY)}
+        />
+      )}
+      {mode === EDIT && (
+        <Form
+          student={interview.student}
+          interviewer={interview.interviewer}
+          interviewers={interviewers}
+          onSave={save}
+          onCancel={() => back(SHOW)}
         />
       )}
     </article>
