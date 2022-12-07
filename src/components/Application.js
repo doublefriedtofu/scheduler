@@ -57,7 +57,7 @@ export default function Application() {
     };
 
     return axios.put(`/api/appointments/${id}`, { interview })
-      .then(() => setState({ ...state, appointments }));
+      .then(() => setState({ ...state, appointments }))
   };
 
   // FUNCTION DELETE
