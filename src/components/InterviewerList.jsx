@@ -8,16 +8,16 @@ export default function InterviewerList(props) {
 
 
 
-  const interviewerListItem = interviewers.map((e) => {
-    const newValue = value ? value.id : value
-
+  const interviewerListItem = interviewers.map((interviewer) => {
+    const newValue = typeof value === "object" && value !== null ? value.id : value;
+    
     return (
       <InterviewerListItem
-        key={e.id}
-        name={e.name}
-        avatar={e.avatar}
-        selected={newValue === e.id}
-        setInterviewer={() => onChange(e.id)}
+        key={interviewer.id}
+        name={interviewer.name}
+        avatar={interviewer.avatar}
+        selected={newValue === interviewer.id}
+        setInterviewer={() => onChange(interviewer.id)}
       />
     );
   });
