@@ -8,7 +8,6 @@ import Form from './Form';
 import Status from './Status';
 import Error from './Error';
 import Confirm from './Confirm';
-import { BackendKeyDataMessage } from 'pg-protocol/dist/messages';
 
 
 export default function Appointment(props) {

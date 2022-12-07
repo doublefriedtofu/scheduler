@@ -74,21 +74,6 @@ export default function Application() {
       .then(() => setState({ ...state, appointments }));
   };
 
-  const editInterview = (id, interview) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    return axios.put(`/api/appointments/${id}`, { interview })
-      .then(() => setState({ ...state, appointments }));
-
-  };
-
-
   // FRONT END
   return (
     <main className="layout">
@@ -124,7 +109,6 @@ export default function Application() {
               interviewers={interviewers}
               bookInterview={bookInterview}
               cancelInterview={cancelInterview}
-              editInterview={editInterview}
             />
           );
         })}
