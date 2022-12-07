@@ -5,8 +5,19 @@ import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment/index";
 import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors";
+import useApplicationData from '../hooks/useApplicationData';
 
-export default function Application() {
+export default function Application(props) {
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
+
+
+
+/*
   // STATE FOR DAY, DAYS, APPT, INTERVIEWERS
   const [state, setState] = useState({
     day: 'Monday',
@@ -17,12 +28,14 @@ export default function Application() {
 
 
   const setDay = day => setState({ ...state, day });
+ */
+
   // GETS APPT FOR THE GIVEN DAY
   const appointments = getAppointmentsForDay(state, state.day);
   // GETS INTERVIEWERS FOR THE GIVEN DAY
   const interviewers = getInterviewersForDay(state, state.day);
 
-
+/*
   // GETS THE APPROPRIATE DATA FROM API SERVER
   useEffect(() => {
     const daysURL = `http://localhost:8001/api/days`;
@@ -44,7 +57,9 @@ export default function Application() {
       });
   }, []);
 
+  */
 
+/*
   // FUNCTION SAVES INPUT DATA INTO STATE
   const bookInterview = (id, interview) => {
     const appointment = {
@@ -73,22 +88,7 @@ export default function Application() {
     return axios.delete(`/api/appointments/${id}`)
       .then(() => setState({ ...state, appointments }));
   };
-
-  const editInterview = (id, interview) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    return axios.put(`/api/appointments/${id}`, { interview })
-      .then(() => setState({ ...state, appointments }));
-
-  };
-
-
+*/
   // FRONT END
   return (
     <main className="layout">
@@ -124,7 +124,6 @@ export default function Application() {
               interviewers={interviewers}
               bookInterview={bookInterview}
               cancelInterview={cancelInterview}
-              editInterview={editInterview}
             />
           );
         })}

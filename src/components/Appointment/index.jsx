@@ -9,7 +9,7 @@ import Status from './Status';
 
 
 export default function Appointment(props) {
-  const { id, time, interview, interviewers, bookInterview, cancelInterview, editInterview } = props;
+  const { id, time, interview, interviewers, bookInterview, cancelInterview  } = props;
 
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
