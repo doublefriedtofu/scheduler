@@ -5,7 +5,7 @@ import Button from '../Button';
 
 export default function Form(props) {
 
-  const { student, interviewer, interviewers, onSave, onCancel } = props;
+  const { student, interviewer, interviewers, onCancel } = props;
 
   const [theStudent, setTheStudents] = useState(student || "");
   const [theInterviewer, setTheInterviewer] = useState(interviewer || null);
@@ -35,6 +35,7 @@ export default function Form(props) {
       return;
     }
 
+    setError("");
     props.onSave(theStudent, theInterviewer);
   }
 
