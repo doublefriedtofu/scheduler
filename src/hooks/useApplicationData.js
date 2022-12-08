@@ -6,9 +6,9 @@ export default function useApplicationData() {
     day: 'Monday',
     days: [],
     appointments: {},
-    interviewers: {}
+    interviewers: {},
   });
-  
+
   const setDay = day => setState({ ...state, day });
 
   useEffect(() => {
@@ -31,6 +31,28 @@ export default function useApplicationData() {
       });
   }, []);
 
+  // function to update Spots count
+  const updateSpots = (state, appointments, id) => {
+    // find the days
+    const dayObj = state.days.find(value => value.name === state.day);
+    // const index = state.days.findIndex(value => value.name === state.day);
+
+    let spots = 0;
+    // iterate the appointment IDs in that day
+    for (const id of dayObj.appointments) {
+      const appointment = appointments[id];
+      if (appointment.interview === null) {
+        spots++;
+      }
+    }
+
+    const day = { ...dayObj, spots };
+    const newDays = state.days.map((d) => {
+      return d.name === state.day ? day : d;
+    });
+    return newDays;
+  };
+
 
   // FUNCTION SAVES INPUT DATA INTO STATE
   const bookInterview = (id, interview) => {
@@ -42,11 +64,11 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
-    
+
     return axios.put(`/api/appointments/${id}`, { interview })
-    .then(() => setState({ ...state, appointments }));
+      .then(() => setState({ ...state, appointments, days: updateSpots(state, appointments, id) }));
   };
-  
+
   // FUNCTION DELETE
   const cancelInterview = (id) => {
     const appointment = {
@@ -58,8 +80,11 @@ export default function useApplicationData() {
       [id]: appointment
     };
     return axios.delete(`/api/appointments/${id}`)
-    .then(() => setState({ ...state, appointments }));
+      .then(() => setState({ ...state, appointments, days: updateSpots(state, appointments, id) }));
   };
 
-  return {state: state, setDay: setDay, bookInterview: bookInterview, cancelInterview: cancelInterview }
+
+
+
+  return { state: state, setDay: setDay, bookInterview: bookInterview, cancelInterview: cancelInterview };
 }

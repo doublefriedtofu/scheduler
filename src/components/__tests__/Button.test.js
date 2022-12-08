@@ -57,3 +57,8 @@ it("renders a disabled button", () => {
 
   expect(handleClick).toHaveBeenCalledTimes(0);
 });
+
+it("renders its `children` prop as text", () => {
+  const { getByText } = render(<Button>Default</Button>);
+  expect(getByText("Default")).toBeInTheDocument();
+});
