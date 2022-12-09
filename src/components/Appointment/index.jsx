@@ -11,7 +11,7 @@ import Confirm from './Confirm';
 
 
 export default function Appointment(props) {
-  const { id, time, interview, interviewers, bookInterview, cancelInterview  } = props;
+  const { id, time, interview, interviewers, bookInterview, cancelInterview } = props;
 
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
@@ -54,9 +54,8 @@ export default function Appointment(props) {
   function edit() {
     transition(EDIT);
   }
-
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={time}>
       </Header>
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
@@ -64,7 +63,7 @@ export default function Appointment(props) {
         <Show
           student={interview.student}
           interviewers={interview.interviewer}
-          onDelete={()=> transition(CONFIRM)}
+          onDelete={() => transition(CONFIRM)}
           onEdit={edit}
         />
       )}

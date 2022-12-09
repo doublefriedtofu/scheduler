@@ -36,7 +36,10 @@ export default function Form(props) {
     }
 
     setError("");
-    props.onSave(theStudent, theInterviewer);
+
+    const newValue = typeof theInterviewer === "object" && theInterviewer !== null ? theInterviewer.id : theInterviewer;
+
+    props.onSave(theStudent, newValue);
   }
 
 
