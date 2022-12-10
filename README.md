@@ -7,15 +7,15 @@ This app is created by Max as part of the Lighthouse Lab Projects. It features b
 
 Main Page
 !["Screenshot of the main page"]
-(https://raw.githubusercontent.com/doublefriedtofu/scheduler/master/docs/Interview_Scheduler_main.png)
+(https://github.com/doublefriedtofu/scheduler/blob/9182f8cfc83a13ef17d4c21f23818b4cda864b9a/docs/Interview_Scheduler_main.png)
 
 Appointment Form
 !["Screenshot of Appointment Form"]
-(https://raw.githubusercontent.com/doublefriedtofu/scheduler/master/docs/Interview_Scheduler_New_Appointment.png)
+(https://github.com/doublefriedtofu/scheduler/blob/9182f8cfc83a13ef17d4c21f23818b4cda864b9a/docs/Interview_Scheduler_New_Appointment.png)
 
 Delete Confirmation
 !["Screenshot of Delete Confirmation"]
-(https://raw.githubusercontent.com/doublefriedtofu/scheduler/master/docs/Interview_Scheduler_Delete_Confirmation.png)
+(https://github.com/doublefriedtofu/scheduler/blob/9182f8cfc83a13ef17d4c21f23818b4cda864b9a/docs/Interview_Scheduler_Delete_Confirmation.png)
 
 
 ## Setup
